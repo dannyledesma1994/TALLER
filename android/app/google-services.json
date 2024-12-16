@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "919666395979",
+    "project_id": "mensajeria-online-cdf8f",
+    "storage_bucket": "mensajeria-online-cdf8f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919666395979:android:fac36e298dc433d3f4f6ce",
+        "android_client_info": {
+          "package_name": "com.example.taller"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHiHpVjpcGmnObfzLA6Qfx7c_e3j1kWl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
