@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'movie_player_screen.dart'; // Importa la pantalla de reproducción de películas
 
+
 class Movie {
   final String title;
   final String description;

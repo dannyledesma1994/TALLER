@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taller/screens/movie_catalog_screen.dart';
 
+
 class MoviePlayerScreen extends StatefulWidget {
   final Movie movie; // Película recibida
 

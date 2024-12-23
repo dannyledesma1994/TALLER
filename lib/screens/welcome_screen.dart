@@ -7,6 +7,8 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -20,20 +22,20 @@ class WelcomeScreen extends StatelessWidget {
           // Contenido principal con transparencia
           Container(
             color: Colors.black.withOpacity(0.5), // Capa semitransparente
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Título con estilo
-                  Text(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Título en la parte superior
+                Padding(
+                  padding: const EdgeInsets.only(top: 60),
+                  child: Text(
                     'BIENVENIDOS A LAS PELÍCULAS DEL AÑO',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Colors.yellow, // Color amarillo para el texto
+                      color: Colors.yellow,
                       letterSpacing: 2,
-                      fontFamily: 'Montserrat', // Fuente Montserrat
+                      fontFamily: 'Montserrat',
                       shadows: [
                         Shadow(
                           blurRadius: 10.0,
@@ -42,31 +44,71 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    textAlign: TextAlign.center, // Asegura que el texto esté centrado
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 30),
+                ),
 
-                  const SizedBox(height: 40),
+                // Ícono y texto en el centro
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.movie, // Ícono de películas
+                      size: 100,
+                      color: const Color.fromARGB(255, 117, 218, 22), // Color del ícono
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'LAS MEJORES DEL CINE',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontFamily: 'Montserrat',
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
 
-                  // Botón de inicio de sesión con estilo
-                  _buildStyledButton(
-                    context,
-                    'Iniciar sesión',
-                    LoginScreen(),
-                    Colors.greenAccent, // Color personalizado para este botón
+                // Sección inferior con los botones
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildIconButton(
+                        context,
+                        'Iniciar sesión',
+                        Icons.login,
+                        LoginScreen(),
+                        Colors.greenAccent,
+                      ),
+                      _buildIconButton(
+                        context,
+                        'Registrarse',
+                        Icons.person_add,
+                        RegisterScreen(),
+                        Colors.blueAccent,
+                      ),
+                      IconButton(
+                        icon: Icon(isDark ? Icons.wb_sunny : Icons.nightlight_round, size: 24),
+                        color: Colors.white,
+                        onPressed: () {
+                          // Cambiar entre modo claro y oscuro
+                          if (isDark) {
+                            // Cambiar a modo claro
+                            Theme.of(context).setBrightness(Brightness.light);
+                          } else {
+                            // Cambiar a modo oscuro
+                            Theme.of(context).setBrightness(Brightness.dark);
+                          }
+                        },
+                      ),
+                    ],
                   ),
-
-                  const SizedBox(height: 20),
-
-                  // Botón de registro con estilo
-                  _buildStyledButton(
-                    context,
-                    'Registrarse',
-                    RegisterScreen(),
-                    Colors.blueAccent, // Color personalizado para este botón
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -74,14 +116,14 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 
-  // Función para crear un botón estilizado con colores personalizados
-  Widget _buildStyledButton(
-      BuildContext context, String text, Widget nextScreen, Color color) {
-    return ElevatedButton(
+  // Función para crear un botón con ícono
+  Widget _buildIconButton(
+      BuildContext context, String text, IconData icon, Widget nextScreen, Color color) {
+    return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white, // Color del texto
+        foregroundColor: Colors.white, // Color del texto e ícono
         backgroundColor: color, // Color personalizado del botón
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30), // Bordes redondeados
         ),
@@ -93,10 +135,15 @@ class WelcomeScreen extends StatelessWidget {
           MaterialPageRoute(builder: (context) => nextScreen),
         );
       },
-      child: Text(
+      icon: Icon(icon, size: 24),
+      label: Text(
         text,
         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
       ),
     );
   }
+}
+
+extension on ThemeData {
+  void setBrightness(Brightness light) {}
 }
